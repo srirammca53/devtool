@@ -33,31 +33,10 @@ end
 
 def create
   @project = Project.find(params[:project_id])
-    @all_iterations = Iteration.find(:all, :select => "status" ,:conditions => {:status => "Open", :project_id => @project.id}).map(&:status).count
-   if  @iteration = @project.iteration.new(params[:iteration])
-     @flag = 0
-	if @iteration.status == "Open"
-		if @all_iterations.to_i > 1
-			flash[:error] = "One record is already \"Opened\""
-			render :action => "new" and return
-		 end
-	
-	else
-		@current_iteration_start = @iteration.start_date
-			@all_iterations_enddate = Iteration.find(:all, :select => "end_date" ,:conditions => {:project_id => @project.id}).map(&:end_date)
-			@all_iterations_enddate.each do |enddate|
-							if @current_iteration_start < enddate 
-							@flag = @flag + 1
-							end
-						    end
-							if @flag > 0 
-							flash[:error] = "One of the iteration having the dates you selected select different one"
-							end
-	end
-	
+     @iteration = @project.iteration.new(params[:iteration])
+       @iteration.save
 
-	end
-  render :nothing => true
+  render :action => "show"
 end
 
 def update
