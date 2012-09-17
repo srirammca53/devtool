@@ -37,7 +37,7 @@ def create
    if  @iteration = @project.iteration.new(params[:iteration])
      @flag = 0
 	if @iteration.status == "Open"
-		if @all_iterations.to_i >= 1
+		if @all_iterations.to_i > 1
 			flash[:error] = "One record is already \"Opened\""
 			render :action => "new" and return
 		 end
@@ -55,33 +55,7 @@ def create
 							end
 	end
 	
-	case @iteration.iterationtype
 
-		when "Weekly"
-			#raise (@iteration.end_date - @iteration.start_date).to_i.inspect
-			 if (@iteration.end_date - @iteration.start_date).to_i != 7
-			  flash[:error] = "Less or more days selected for weekly type"
-			else 
-			  @iteration.save
-			redirect_to project_iteration_path(@project.id, @iteration.id ) and return
-			end
-				
-		when  "BIO-Monthly"
-		   	if (@iteration.end_date - @iteration.start_date).to_i != 15
-			  flash[:error] = "Less or more days selected for Bio-Monthly type"
-			else 
-			  @iteration.save
-			redirect_to project_iteration_path(@project.id, @iteration.id ) and return
-			end
-		when "Monthly"
-		   	if (@iteration.end_date - @iteration.start_date).to_i != 30 ||  if (@iteration.end_date - @iteration.start_date).to_i != 31
-			  flash[:error] = "Less or more days selected for Monthly type"
-			else 
-			  @iteration.save
-			redirect_to project_iteration_path(@project.id, @iteration.id ) and return
-			end
-			end
-		end
 	end
   render :nothing => true
 end
