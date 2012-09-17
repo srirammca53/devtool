@@ -13,10 +13,10 @@
 <%= javascript_heads %>
 <%= heads_for_theme %>
 <!--[if IE 6]>
-    <style type="text/css">
-      * html body{ width: expression( document.documentElement.clientWidth < 900 ? '900px' : '100%' ); }
-      body {behavior: url(<%= stylesheet_path "csshover.htc" %>);}
-    </style>
+<style type="text/css">
+* html body{ width: expression( document.documentElement.clientWidth < 900 ? '900px' : '100%' ); }
+body {behavior: url(<%= stylesheet_path "csshover.htc" %>);}
+</style>
 <![endif]-->
 <%= call_hook :view_layouts_base_html_head %>
 <!-- page specific tags -->
@@ -67,14 +67,14 @@
 
     <div id="content">
         <%= render_flash_messages %>
-		 <% if User.current.logged?%>
-			  <% if request.referer == "http://localhost:3000/login" %>	
-			  <%else%>
-				  <div id = "recentback">
-						<%= link_to "<< back to previous page" , request.referer %><br/>
-				  </div>
-			  <%end%>
-		<%end%>
+<% if User.current.logged?%>
+<% if request.referer == "http://localhost:3000/login" %>
+<%else%>
+<div id = "recentback">
+<%= link_to "<< back to previous page" , request.referer %><br/>
+</div>
+<%end%>
+<%end%>
         <%= yield %>
         <%= call_hook :view_layouts_base_content %>
         <div style="clear:both;"></div>
@@ -86,7 +86,7 @@
 
 <div id="footer">
   <div class="bgl"><div class="bgr">
-   <a href= http://logicmatter.com >Logicmatter</a>
+    Powered by <%= link_to Redmine::Info.app_name, Redmine::Info.url %> &copy; 2006-2012 Jean-Philippe Lang
   </div></div>
 </div>
 </div>
@@ -95,23 +95,19 @@
 </body>
 </html>
 <style>
-	#recentback
-	{
-<<<<<<< HEAD
-		background-color: #CA6828;
-=======
-		background-color: #E6E6E6;
->>>>>>> fb12c5cea4c7327afb1b527c109d99a8c69de92e
-		background-repeat: repeat-x;
-		border-bottom: 1px solid #CCCCCC;
-		border-radius: 5px 5px 0 0;
-		color: #000000;
-		margin-bottom: 5px;
-		margin-left: -10px;
-		margin-right: -9px;
-		padding: 10px 15px;
-		position: relative;
-		top: -6px;
-	}
+#recentback
+{
+background-color: #E6E6E6;
+background-repeat: repeat-x;
+border-bottom: 1px solid #CCCCCC;
+border-radius: 5px 5px 0 0;
+color: #000000;
+margin-bottom: 5px;
+margin-left: -10px;
+margin-right: -9px;
+padding: 10px 15px;
+position: relative;
+top: -6px;
+}
 
 </style>
