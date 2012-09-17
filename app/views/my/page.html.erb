@@ -1,12 +1,15 @@
+<%= stylesheet_link_tag( 'default')%>
+<%= javascript_include_tag('jquery.min', 'glDatePicker.min')%>
 <html>
+
 <head>
 <script>
 function date()
 {
-var date = document.getElementById("date").value
-document.getElementById("date1").value = date
-var date1 = document.getElementById("date1").value
-alert(date1);
+	var date = document.getElementById("date").value
+	document.getElementById("date1").value = date
+	var date1 = document.getElementById("date1").value
+	alert(date1);
 }
 </script>
 <style>
@@ -26,20 +29,25 @@ text-align :center;
 <%#= @tid.count %>
 
 <%= link_to "Reports",my_reports_path %> |
-<%= link_to "Timesheet" , my_timesheet_path %> |
- <%= link_to(l(:label_overall_spent_time), time_entries_path) + ' |' if User.current.allowed_to?(:view_time_entries, nil, :global => true) %> <%= link_to "Backlogs", backlogs_path %>
+<%= link_to "Timesheet" , my_timesheet_path %>
 
 <table width=100%>
 <tr width=100%>
 <th width=10%>Project name </th>
 <th  width=10%>Task name</th>
-<th width=10%>Iteration name</th>
-<th width=10%>Story name</th>
+
 <th width=10%>Estimated time</th>
 <th width=10%>Actual time</th>
-<th id="date" width=15%><% @date =Time.now.to_date %> <%= @date %></th>
+<th width=10%>Enter log hours</th>
+<th width=10%>Description about that task</th>
+<th id="date" width=15%>
+<%#= text_field_tag 'gettingdate',nil, :onchange=> "myFunction();" %>
+
+</th>
+
 </tr>
 <%= form_tag( logs_tasks_path, :method => :post) do %>
+<span id = "textfordate">Select date:</span> <%= text_field_tag 'gettingdate' ,nil, :onchange=> "myFunction();" %>
 <%@tid.each do |taskmain|%>
 <% t = taskmain.id %>
   <tr>
@@ -56,8 +64,7 @@ text-align :center;
 					<% if pro.id == it.project_id %>
 					  <td width=10%><%= pro.name %></td>
 					   <td width=10%> <%=taskmain.name%></td>
-					   <td width=10%> <%= it.name %></td>
-					   <td width=10%> <%= st.name %></td>
+					  
 						<td width=10%><%= taskmain.estimated_hours.round(2) rescue 0 %></td>
 						<td width=10%><% @actual_hours = 0 %>
 							     <% @log = Log.find(:all, :conditions => {:task_id => taskmain.id}) %>
@@ -69,14 +76,13 @@ text-align :center;
 						</td>
  						<% @logs = Log.new %>
 						
-							<td width=30%>
-								<%= text_field_tag "spent_hours[#{t}][:spent_hours]"%>
-								<% reported_date = @date %>
-								<%= hidden_field_tag 'reported_date' , :value=> reported_date %>
+							<td >
+								
+								<%= text_field_tag "spent_hours[#{t}][:spent_hours]",nil, :size => 4%></td>
+								<%= hidden_field_tag 'log_date' %>
 								<% current_task = taskmain.id %>
 								<%= hidden_field_tag 'task_id' , :value=> current_task %>&nbsp;
-								<%= text_field_tag "spent_hours[#{t}][:description]" %>
-								
+								<td><%= text_field_tag "spent_hours[#{t}][:description]" %>
 							</td>
 		                                        
 						
@@ -92,7 +98,37 @@ text-align :center;
 <%= submit_tag('log')%> 
 <% end %> 
 
-
+<script>
+	$("#gettingdate").glDatePicker(
+	{
+		onChange: function(target, newDate)
+		{
+			target.val
+			(
+				newDate.getFullYear() + "-" +
+				(newDate.getMonth() + 1) + "-" +
+				newDate.getDate()
+			);
+		}
+	});
+	</script>
+	<style>
+	#gettingdate
+	{
+		float: right;
+		position: relative;
+		right: 13%;
+    }
+    #textfordate
+	{
+		float: right;
+		font-weight: bold;
+		position: relative;
+		right: 41%;
+		top: 6px;
+    }
+	</style>
+	
 </body>
 </html>
 
