@@ -27,9 +27,9 @@
 <div id="wrapper">
 <div id="wrapper2">
 <div id="top-menu">
+   
     <div id="account">
         <%= render_menu :account_menu -%>
-	
     </div>
     <%= content_tag('div', "#{l(:label_logged_as)} #{link_to_user(User.current, :format => :username)}".html_safe, :id => 'loggedas') if User.current.logged? %>
     <%= render_menu :top_menu if User.current.logged? || !Setting.login_required? -%>
@@ -67,7 +67,14 @@
 
     <div id="content">
         <%= render_flash_messages %>
-	<%= link_to "Back" , request.referer %><br/>
+		 <% if User.current.logged?%>
+			  <% if request.referer == "http://localhost:3000/login" %>	
+			  <%else%>
+			  <div id = "recentback">
+				<%= link_to "<< back to previous page" , request.referer %><br/>
+			</div>
+			  <%end%>
+		<%end%>
         <%= yield %>
         <%= call_hook :view_layouts_base_content %>
         <div style="clear:both;"></div>
@@ -87,3 +94,26 @@
 <%= call_hook :view_layouts_base_body_bottom %>
 </body>
 </html>
+<style>
+	#recentback
+	{
+		background-color: #0071BC;
+		background-repeat: repeat-x;
+		border-bottom: 1px solid #CCCCCC;
+		border-radius: 5px 5px 0 0;
+		color: #000000;
+		font-size: 17px;
+		margin-bottom: 5px;
+		margin-left: -10px;
+		margin-right: -9px;
+		padding: 10px 15px;
+		position: relative;
+		top: -6px;
+	}
+	 a, a:visited, #recentback a.selected 
+	{
+		color: #000000;
+		font-size: 13px;
+		
+	}
+</style>
