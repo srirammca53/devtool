@@ -1,5 +1,5 @@
 <html>
-<p> story : <h2><%= @story.name %></h2></p>
+<h2><%= link_to @project.name, project_path(@project)%> >> <%= link_to @iteration.name,  project_iteration_path(@project.id, @iteration.id, @story.id )%> >> <%= @story.name %></h2>
 <table>
 <tr>
 

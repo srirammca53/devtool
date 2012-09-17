@@ -1,9 +1,8 @@
 
 <html>
-<p> Task : <h2><%= @task.name %></h2></p>
+<h2> <%= link_to @pro.name, project_path(@pro) %> >> <%= link_to @iteration.name, project_iteration_path(@pro.id, @iteration.id ) %> >> <%= link_to @story.name, project_iteration_story_path(@pro.id, @iteration.id ) %> >> <%= @task.name %></h2></p>
 <table>
 <tr>
-
 <td>
 Name:
 </td>
