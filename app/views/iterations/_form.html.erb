@@ -41,11 +41,29 @@
  </table>
 
 </html>
- <script>
-$(function() {
-	$('#popupDatepicker').datepick({dateFormat: 'yyyy-mm-dd'});
-	
-	$('#popupDatepicker1').datepick({dateFormat: 'yyyy-mm-dd'});
-});
-
+<script>
+	$("#popupDatepicker").glDatePicker(
+	{
+		onChange: function(target, newDate)
+		{
+			target.val
+			(
+				newDate.getFullYear() + "-" +
+				(newDate.getMonth() + 1) + "-" +
+				newDate.getDate()
+			);
+		}
+	});
+	$("#popupDatepicker1").glDatePicker(
+	{
+		onChange: function(target, newDate)
+		{
+			target.val
+			(
+				newDate.getFullYear() + "-" +
+				(newDate.getMonth() + 1) + "-" +
+				newDate.getDate()
+			);
+		}
+	});
 </script>
