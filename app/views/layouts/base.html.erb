@@ -70,9 +70,9 @@
 		 <% if User.current.logged?%>
 			  <% if request.referer == "http://localhost:3000/login" %>	
 			  <%else%>
-			  <div id = "recentback">
-				<%= link_to "<< back to previous page" , request.referer %><br/>
-			</div>
+				  <div id = "recentback">
+						<%= link_to "<< back to previous page" , request.referer %><br/>
+				  </div>
 			  <%end%>
 		<%end%>
         <%= yield %>
@@ -102,7 +102,6 @@
 		border-bottom: 1px solid #CCCCCC;
 		border-radius: 5px 5px 0 0;
 		color: #000000;
-		font-size: 17px;
 		margin-bottom: 5px;
 		margin-left: -10px;
 		margin-right: -9px;
@@ -110,8 +109,5 @@
 		position: relative;
 		top: -6px;
 	}
-	 a, #recentback a.selected 
-	{
-		font-size: 13px;	
-	}
+
 </style>
