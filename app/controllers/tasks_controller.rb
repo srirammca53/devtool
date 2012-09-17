@@ -118,13 +118,6 @@ def update
 
 end
 
-def show
-  @project = Project.find(params[:project_id])
-  @iteration = Iteration.find(params[:iteration_id])
-  @story = Story.find(params[:story_id])
- @task = @story.tasks.find(params[:id])
-
-end
 
 
 def delete
@@ -140,12 +133,14 @@ def total_tasks
 	
 	
 end
+
 def show
  @pro = Project.find(params[:project_id])
  @iteration = Iteration.find(params[:iteration_id]) 
  @story = Story.find(params[:story_id])
  @task = Task.find(params[:id]) 
 end
+
 def update_tasks
 	
 	raise "yes".inspect
