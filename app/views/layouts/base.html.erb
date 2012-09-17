@@ -23,11 +23,13 @@
 <%= yield :header_tags -%>
 </head>
 <body class="<%=h body_css_classes %>">
+
 <div id="wrapper">
 <div id="wrapper2">
 <div id="top-menu">
     <div id="account">
         <%= render_menu :account_menu -%>
+	
     </div>
     <%= content_tag('div', "#{l(:label_logged_as)} #{link_to_user(User.current, :format => :username)}".html_safe, :id => 'loggedas') if User.current.logged? %>
     <%= render_menu :top_menu if User.current.logged? || !Setting.login_required? -%>
@@ -51,6 +53,7 @@
 
     <% if display_main_menu?(@project) %>
     <div id="main-menu">
+
         <%= render_main_menu(@project) %>
     </div>
     <% end %>
@@ -64,6 +67,7 @@
 
     <div id="content">
         <%= render_flash_messages %>
+	<%= link_to "Back" , request.referer %><br/>
         <%= yield %>
         <%= call_hook :view_layouts_base_content %>
         <div style="clear:both;"></div>

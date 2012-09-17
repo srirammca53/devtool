@@ -26,7 +26,8 @@ text-align :center;
 <%#= @tid.count %>
 
 <%= link_to "Reports",my_reports_path %> |
-<%= link_to "Timesheet" , my_timesheet_path %>
+<%= link_to "Timesheet" , my_timesheet_path %> |
+ <%= link_to(l(:label_overall_spent_time), time_entries_path) + ' |' if User.current.allowed_to?(:view_time_entries, nil, :global => true) %>
 
 <table width=100%>
 <tr width=100%>
