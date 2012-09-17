@@ -1,0 +1,43 @@
+<html>
+<p> New Userstory for <b><%#= @story.name %></b> </p>
+<table border="1" >
+<tr>
+<%= form_for @story, :url => {:action => :create, :id => @iteration_id } do |f| %>
+ <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :Description %><br />
+    <%= f.select(:description, options_for_select(["Planned", "Carried Over", "Added"])) %>
+  </div>
+  <div class="field">
+    <%= f.label :Customer %><br />
+    <%= f.select :customer, User.find(:all, :conditions =>"lastname= Admin").collect{|p|[p.lastname]},  {:include_blank => 'select'} %>
+  </div>
+  <div class="field">
+    <%= f.label :Tracker %><br />
+     <%= f.select :tracker, User.find(:all, :conditions =>"lastname= Admin").collect{|p|[p.lastname]},  {:include_blank => 'select'} %>
+  </div>
+ <div class="field">
+    <%= f.label :Status %><br />
+    <%= f.select(:status, options_for_select(["Draft", "Defined", "Estimated", "Planned", "Implemented", "Verified", "Accepted"])) %>
+
+  </div>
+ <div class="field">
+    <%= f.label :Priority %><br />
+    <%= f.text_field :priority %>
+  </div>
+ <div class="field">
+    <%= f.label :Order %><br />
+    <%= f.text_field :order %>
+  </div>
+ <div class="field">
+    <%= f.label :Estimated_hours %><br />
+    <%= f.text_field :Estimated_hours %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

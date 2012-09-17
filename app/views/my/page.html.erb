@@ -1,0 +1,97 @@
+<html>
+<head>
+<script>
+function date()
+{
+var date = document.getElementById("date").value
+document.getElementById("date1").value = date
+var date1 = document.getElementById("date1").value
+alert(date1);
+}
+</script>
+<style>
+#spent_hours
+{
+width:20px;
+}
+td
+{
+text-align :center;
+}
+</style>
+</head>
+<body onload="do_stuff()">
+<% @flag = 0 %>
+<% @tid = Task.find(:all)%>
+<%#= @tid.count %>
+
+<%= link_to "Reports",my_reports_path %> |
+<%= link_to "Timesheet" , my_timesheet_path %>
+
+<table width=100%>
+<tr width=100%>
+<th width=10%>Project name </th>
+<th  width=10%>Task name</th>
+<th width=10%>Iteration name</th>
+<th width=10%>Story name</th>
+<th width=10%>Estimated time</th>
+<th width=10%>Actual time</th>
+<th id="date" width=15%><% @date =Time.now.to_date %> <%= @date %></th>
+</tr>
+<%= form_tag( logs_tasks_path, :method => :post) do %>
+<%@tid.each do |taskmain|%>
+<% t = taskmain.id %>
+  <tr>
+	<% if taskmain.acceptor == User.current.lastname%>
+        
+	 
+          <% @user_story = Story.find(:all, :conditions => {:id => taskmain.story_id }) %>
+		<% @user_story.each do |st| %>
+	    	 
+		   <% @iteration = Iteration.find(:all, :conditions => {:id => st.iteration_id }) %>
+			<% @iteration.each do |it| %>
+			        
+			 	<% @projects.each do |pro| %>
+					<% if pro.id == it.project_id %>
+					  <td width=10%><%= pro.name %></td>
+					   <td width=10%> <%=taskmain.name%></td>
+					   <td width=10%> <%= it.name %></td>
+					   <td width=10%> <%= st.name %></td>
+						<td width=10%><%= taskmain.estimated_hours.round(2) rescue 0 %></td>
+						<td width=10%><% @actual_hours = 0 %>
+							     <% @log = Log.find(:all, :conditions => {:task_id => taskmain.id}) %>
+										<% @log.each do |tlog|%>
+										<% @actual_hours = @actual_hours.to_i + tlog.spent_hours.to_i %>
+										<% end %>
+							      
+					        <%= @actual_hours %>
+						</td>
+ 						<% @logs = Log.new %>
+						
+							<td width=30%>
+								<%= text_field_tag "spent_hours[#{t}][:spent_hours]"%>
+								<% reported_date = @date %>
+								<%= hidden_field_tag 'reported_date' , :value=> reported_date %>
+								<% current_task = taskmain.id %>
+								<%= hidden_field_tag 'task_id' , :value=> current_task %>&nbsp;
+								<%= text_field_tag "spent_hours[#{t}][:description]" %>
+								
+							</td>
+		                                        
+						
+					<% end %>
+				<% end %>	
+		     <% end %>
+	       <% end %>	
+         <%end%>
+ </tr>
+
+<%end%>
+</table>
+<%= submit_tag('log')%> 
+<% end %> 
+
+
+</body>
+</html>
+

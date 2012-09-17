@@ -1,0 +1,4 @@
+<%= form_tag (my_project_reports_path)  do %>
+<%= select_tag "project", options_for_select(Project.find(:all).collect{|p|[p.name]}) %>
+<%= submit_tag "done" %>
+<% end %>

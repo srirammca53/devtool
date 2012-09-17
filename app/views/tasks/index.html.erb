@@ -1,0 +1,77 @@
+<%= stylesheet_link_tag('colorbox')%>
+<%= javascript_include_tag('jquery.min', 'jquery.colorbox')%>
+<% @pro = Project.find(params[:project_id]) %>
+<% @iteration = Iteration.find(params[:iteration_id]) %> 
+<% @story = Story.find(params[:story_id]) %> 
+<%#= link_to "total_tasks", total_tasks_project_iteration_story_tasks_path(@pro.id,@iteration.id,@story.id) %>
+<table >
+		<p><b>List of Tasks</b></p>
+		<tr >
+			<th width ="200px">Name</th>
+			<th width ="200px">Task_type</th>
+			<th width ="100px">Disposition</th>
+			<th width ="100px">Acceptor</th>
+			<th width ="100px">Estimation time</th>
+			<th width ="200px">Description</th>
+			<th width ="100px">Spent hours</th>
+			<th width ="100px">Remaining hours</th>
+			<th width ="50px"></th>
+			<th width ="50px"></th>
+		</tr>
+		<%@story.tasks.each do |ts| %>
+
+			<% pro = Project.find(params[:project_id]) %>
+			 
+			<tr  align="center">
+				<td width ="200px"><%#= pro.inspect %>
+					<%= link_to ts.name,project_iteration_story_task_path(pro.id,@iteration.id,@story.id,ts.id) %>
+					
+				</td>
+				<td width ="200px">
+					<%=  ts.task_type %>
+				</td><td width ="100px">
+					<%=  ts.disposition %>
+				</td><td width ="100px">
+					<%=  ts.acceptor %>
+				</td><td width ="100px">
+					<%=  ts.estimated_hours.round(2) %>
+				</td><td width ="200px">
+					<%=  ts.description %>
+				</td>
+				
+				<td width ="100px">
+					<%#@log = Log.find(:all, :conditions=>{ts.id => @log.id}) %>
+					<% @logs.each do |lg|  %>   <% if ts.id.to_i == lg.task_id.to_i %>    <%@spendhours= lg.spent_hours %> <% end %> <% end %><%= @spendhours%>
+				</td>	
+				<td width ="100px">
+					<% @logs.each do |lg|  %>  
+						<% if ts.id.to_i == lg.task_id.to_i %>    
+								<%@remaininghours= lg.remaining_time %>
+						<% end %>
+						<% end %>
+						<%= @remaininghours%>
+				</td>
+				<td width ="50px">
+					<%if !User.current.admin?  %>
+					<%= link_to "edit", edit_project_iteration_story_task_path(@project.id, @iteration.id, @story.id, ts.id)%>
+					
+				</td>
+				<td width ="50px">
+					<%= link_to (image_tag 'time1.png', :width => 20, :height => 20 ),   new_task_log_path(ts.id), :class=> "updatetime" %>
+					<% end %>
+				</td>
+			</tr>
+
+	     <% end %>
+</table>
+<% if User.current.admin? %>
+<%= link_to "create Task" , new_project_iteration_story_task_path(@project.id, @iteration.id,@story.id) %>
+<% end %>
+
+<script>
+	$('.updatetime').colorbox();
+</script>
+
+
+
+

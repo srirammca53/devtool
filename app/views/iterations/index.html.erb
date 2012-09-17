@@ -1,0 +1,67 @@
+<html>
+<head>
+<script>
+function load()
+{
+var str = 0
+var id =0 
+	<% @iterations.each do |t| %>
+			<% if t.status == "Closed" %>
+			str+=1
+			id = t.id
+			<% end %>
+			if (str > 0)
+				{
+					alert(id);
+				}
+			else
+				{
+					alert("no");
+				}
+	<% end %>
+
+}
+</script>
+</head>
+<body  >
+<table >
+	<h2> <%= @project.name %> </h2>
+		<p><b>List of Iterations</b></p>
+	
+		<tr width="900px">
+			<th width ="200px">Name</th>
+			<th width ="500px">IterationType</th>
+			<th width ="100px">Start_date</th>
+			<th width ="100px">End_date</th>
+			<th width ="500px">Description</th>	
+		
+			<th width ="500px">Edit</th>
+		</tr>
+		<%@project.iteration.each do |it| %>
+  		
+			<tr width="900px" align="center" id = "#{it.id}" >
+				<td width ="200px">
+					<%= link_to it.name, project_iteration_path(@project.id, it.id) %>
+				</td>
+				<td width ="100px">
+					<%= it.iterationtype %>
+				</td>
+				<td width ="100px">
+					<%= it.start_date %>
+				</td>
+				<td width ="100px">
+					<%= it.end_date %>
+				</td>
+				<td width ="500px">
+					<%= it.status %>
+				</td>
+  					<td><%= link_to "edit", edit_project_iteration_path(@project.id, it.id) %></td>
+			</tr>
+		<% end %>
+</table>
+<%if User.current.admin?  %>
+	<%= link_to "New Iteration",  new_project_iteration_path(@project.id) %>
+<%end %>
+
+</body>
+</html>
