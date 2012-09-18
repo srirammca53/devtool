@@ -1,6 +1,43 @@
+<html>
+<head>
+<%= javascript_include_tag('jquery.min', 'jquery.datepick')%>
+<%= stylesheet_link_tag('jquery.datepick')%>
+</head>
 <center>
 <b> This Page is under construction ..... </b>
 <br/>
 <br/>
-<%= image_tag("construction.png") %>
+<%#= image_tag("construction.png") %>
+<%= form_tag (my_mytimesheet_path) do %>
+
+<%= select_tag "user", options_for_select(User.find(:all).collect{|u|[u.lastname]}) %>
+<table>
+	<tr >
+		<td>
+			Start Date:<%= text_field_tag 'start_date', value = ""%>
+		</td>
+		<td>
+			End Date:<%= text_field_tag 'end_date'%>
+		</td>
+		<td>
+			<%= hidden_field_tag 'start_date_hidden'%>
+		</td>
+		<td>
+			<%= hidden_field_tag 'end_date_hidden'%>
+		</td>
+
+	</tr>
+	<tr>
+
+		<td>
+			<%#= submit_tag 'Generate', :id => "generateid"%> <%#= submit_tag 'reset', :id => "cleardates"%>
+		</td>
+	</tr>
+</table>
+<%= submit_tag "done" %>
+<% end %>
 <center>
+<hr/>
+<%#= render :template => "my/mytimesheet" %>
+
+</html>
