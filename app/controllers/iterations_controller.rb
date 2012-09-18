@@ -39,26 +39,63 @@ end
 
 def create
   @project = Project.find(params[:project_id])
-     @iteration = @project.iteration.new(params[:iteration])
-		if @iteration.status == "Open"
-		@all_iterations = Iteration.find(:all, :select => "status" ,:conditions => {:status => "Open", :project_id => @project.id}).map(&:status).count
-		if @all_iterations < 1
-			@iteration.save
-			redirect_to project_iteration_path(@project.id, @iteration.id )
-		else
-			flash[:error] ="one iteration is already opened. please select planned"
-			redirect_to new_project_iteration_path(@project.id)
-		end
-		else
-			@iteration.save
-			redirect_to project_iteration_path(@project.id, @iteration.id )
-		end
+     @iteration = @project.iteration.new(params[:iteration]) 
+	
+	if @iteration.status == "Open"
+			@all_iterations = Iteration.find(:all, :select => "status" ,:conditions => {:status => "Open", :project_id => @project.id}).map(&:status).count
+	#raise @all_iterations.inspect
+			if @all_iterations >= 1
+				flash[:error] ="one iteration is already opened. please select planned"
+				redirect_to new_project_iteration_path(@project.id) and return
+		        else
+				@all_enddates = Iteration.find(:all, :select => "end_date" ,:conditions => {:project_id => @project.id}).map(&:end_date)
+				if @all_enddates == []
+		                 @iteration.save
+				 redirect_to project_iteration_path(@project.id, @iteration.id ) and return
+				else
+					@all_enddates.each do |end_date|
+							if @iteration.start_date > end_date
+								@iteration.save
+								redirect_to project_iteration_path(@project.id, @iteration.id ) and return
+							else
+								flash[:error] ="Please select differenct dates"
+								redirect_to new_project_iteration_path(@project.id) and return
+							end
+						end
+				end
+			end
+	else
+			@all_enddates = Iteration.find(:all, :select => "end_date" ,:conditions => {:project_id => @project.id}).map(&:end_date)
+			if @all_enddates == []
+		                 @iteration.save
+				 redirect_to project_iteration_path(@project.id, @iteration.id ) and return
+			else
+				@all_enddates.each do |end_date|
+							if @iteration.start_date > end_date
+								@iteration.save
+								redirect_to project_iteration_path(@project.id, @iteration.id ) and return
+							else
+								flash[:error] ="Please select differenct dates"
+								redirect_to new_project_iteration_path(@project.id) and return
+							end
+						end
+			end
+					
+	end
 end
 
 def update
    @project = Project.find(params[:project_id])
-	@iteration = @project.iteration.find(params[:id])	
-    @iteration.update_attributes(params[:iteration])
+   @iteration = @project.iteration.find(params[:id])
+		
+   if @iteration.update_attributes(params[:iteration])
+	if @iteration.status == "Closed"
+		raise "yes ".inspect
+	end
+       render :action => "show"
+   else
+       render :action => "edit"
+   end
  end
 
 def show
