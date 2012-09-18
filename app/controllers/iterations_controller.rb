@@ -40,7 +40,7 @@ end
 def create
   @project = Project.find(params[:project_id])
      @iteration = @project.iteration.new(params[:iteration]) 
-	raise @iteration.inspect
+	
 	if @iteration.status == "Open"
 			@all_iterations = Iteration.find(:all, :select => "status" ,:conditions => {:status => "Open", :project_id => @project.id}).map(&:status).count
 			if 	@all_iterations < 1
