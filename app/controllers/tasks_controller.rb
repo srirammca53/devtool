@@ -97,24 +97,8 @@ def update
     @iteration = @project.iteration.find(params[:iteration_id])
     @story = @iteration.story.find(params[:story_id])
     @task = @story.tasks.find(params[:id])
- 	@user = User.find(:all)
- 	@user.each do |usr|
-		if @task.acceptor == usr.lastname
-		@usermail = usr
-		
-		end
-        end 
-    if @task.update_attributes(params[:task])
-	 @week = Date.today - @task.last_mail.to_date
-	 @last_mail = @task.last_mail
-	 @taskid = @task.id
-	if @week == 7/1
-		TaskMailer.task_update(@usermail,@taskid,@last_mail).deliver
-	end 
-        render :action => "show"
-    else
-		 render :action => "edit"
-    end
+    @task.update_attributes(params[:task])
+    redirect_to project_iteration_story_task_path(@project.id, @iteration.id, @story.id, @task.id )
 
 end
 
@@ -129,9 +113,8 @@ def log
  render :layout => false
 end
 
-def total_tasks
-	
-	
+def issue
+	raise "yes".inspect
 end
 
 def show

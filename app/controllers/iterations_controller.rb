@@ -43,16 +43,36 @@ def create
  
 	if @iteration.status == "Open"
 			@all_iterations = Iteration.find(:all, :select => "status" ,:conditions => {:status => "Open", :project_id => @project.id}).map(&:status).count
-			if 	@all_iterations < 1
-				@iteration.save
-				redirect_to project_iteration_path(@project.id, @iteration.id )
-		   else
+	#raise @all_iterations.inspect
+			if @all_iterations >= 1
 				flash[:error] ="one iteration is already opened. please select planned"
 				redirect_to new_project_iteration_path(@project.id)
+		        else
+				@all_enddates = Iteration.find(:all, :select => "end_date" ,:conditions => {:project_id => @project.id}).map(&:end_date)
+				@all_enddates.each do |end_date|
+					if @iteration.start_date > end_date
+						@iteration.save
+						redirect_to project_iteration_path(@project.id, @iteration.id ) and return
+					else
+						flash[:error] ="Please select differenct dates"
+						redirect_to new_project_iteration_path(@project.id) and return
+					end 
+				end
+					
+				
 			end
+			
 	else
-			@iteration.save
-			redirect_to project_iteration_path(@project.id, @iteration.id )
+			@all_enddates = Iteration.find(:all, :select => "end_date" ,:conditions => {:project_id => @project.id}).map(&:end_date)
+				@all_enddates.each do |end_date|
+					if @iteration.start_date > end_date
+						@iteration.save
+						redirect_to project_iteration_path(@project.id, @iteration.id ) and return
+					else
+						flash[:error] ="Please select differenct dates"
+						redirect_to new_project_iteration_path(@project.id) and return
+					end
+				end
 	end
 end
 

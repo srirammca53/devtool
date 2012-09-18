@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
     cookies.delete(:autologin)
   end
 
-  before_filter :user_setup, :check_if_login_required, :set_localization
+  before_filter :user_setup, :check_if_login_required, :set_localization #, :weekly_mails
 
   rescue_from ActionController::InvalidAuthenticityToken, :with => :invalid_authenticity_token
   rescue_from ::Unauthorized, :with => :deny_access
@@ -49,6 +49,21 @@ class ApplicationController < ActionController::Base
     Setting.check_cache
     # Find the current user
     User.current = find_current_user
+  end
+
+  def weekly_mails
+    @time = Time.now.to_date
+    t = Time.now
+    t.strftime("%I:%M%p")
+
+    if @time.wday == 2
+	if t.strftime("%I:%M%p") == "01:01PM"
+	mailid = User.current.mail
+	WeekMailer.weekly_mail.deliver
+	end
+    else
+	raise "no".inspect
+    end  
   end
 
   # Returns the current user or nil if no user is logged in
