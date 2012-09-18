@@ -40,6 +40,7 @@ end
 def create
   @project = Project.find(params[:project_id])
      @iteration = @project.iteration.new(params[:iteration]) 
+ 
 	if @iteration.status == "Open"
 			@all_iterations = Iteration.find(:all, :select => "status" ,:conditions => {:status => "Open", :project_id => @project.id}).map(&:status).count
 			if 	@all_iterations < 1
@@ -60,13 +61,6 @@ def update
    @iteration = @project.iteration.find(params[:id])
 		
    if @iteration.update_attributes(params[:iteration])
-	if @iteration.status == "Closed"
-		raise "yes ".inspect
-	end
-       render :action => "show"
-   else
-       render :action => "edit"
-   end
  end
 
 def show
