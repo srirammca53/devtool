@@ -17,16 +17,16 @@
   </div>
   <div class="field">
     <%= f.label :Start_date %><br />
-    <%= f.text_field :start_date, :id => :popupDatepicker , :onmouseout=> "myFunction()"%>
+    <%= f.text_field :start_date, :id => :popupDatepicker , :onmouseout=> "myFunction()", :disabled => "true"%>
   </div>
   <div class="field">
     <%= f.label :End_date %><br />
     <%#= f.date_select :end_date %>
-    <%= f.text_field :end_date, :id => :popupDatepicker1 %>
+    <%= f.text_field :end_date, :id => :popupDatepicker1 , :disabled => "true"%>
   </div>
    <div class="field">
     <%= f.label :Status %><br />
- <%= f.select(:status, options_for_select(["Planned","Open"])) %>
+ <%= f.select(:status, options_for_select(["Planned","Open"], :disabled => true)) %>
 
 
   </div>
