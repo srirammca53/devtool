@@ -7,7 +7,7 @@ def test
 		@iteration = @project.iteration.find(params[:id])
 		
 		@endtime =  @iteration.end_date - Time.now.to_date
-		if @endtime.to_i >= -1
+		if @endtime.to_i > -1
 			@iteration.update_attributes(:status => "Closed")
 			project_iterations_path(@project.id)
 		 else

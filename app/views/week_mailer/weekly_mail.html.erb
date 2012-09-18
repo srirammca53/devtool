@@ -1,0 +1,22 @@
+<html>
+<body bgcolor ="gray">
+<center>
+<b><font color ="green"> Visper Tool Weekly Status Mail </font></b>
+</center>
+<hr/>
+<%= User.current.name %>
+<% @current_user = User.current.mail %>
+<% @user.each do |mail| %>
+<% if @current_user == mail %>
+<% @tasks = Task.find(:all, :conditions => {:acceptor => User.current.lastname}) %>
+<%= @tasks %>
+<% end %>
+<% end %>
+Make sure your logged hours should be 40 hours 
+<hr/>
+
+<b><font color="blue">Thanks</font></b><br/>
+<b><font color="blue">Logicmatter Vispertool Team</font></b><br/>
+
+</body>
+</html>

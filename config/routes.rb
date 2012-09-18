@@ -19,6 +19,7 @@ RedmineApp::Application.routes.draw do
 	  resources :tasks do
 			collection do
 			   post 'logs'
+			   post 'issue'
 			end
 			member do
 				post 'completetask'
