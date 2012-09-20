@@ -1,6 +1,7 @@
-
+<% @current_user = User.current.lastname %>
 <html>
 <h2> <%= link_to @pro.name, project_path(@pro) %> >> <%= link_to @iteration.name, project_iteration_path(@pro.id, @iteration.id ) %> >> <%= link_to @story.name, project_iteration_story_path(@pro.id, @iteration.id ) %> >> <%= @task.name %></h2></p>
+
 <table>
 <tr>
 <td>
@@ -63,7 +64,6 @@ description
 </tr>
 <% @logs.each do |log| %>
 <tr>
-<%#= log.inspect %>
 <td><%= log.report_date %></td>
 <td><%= link_to @task.acceptor , "#" %></td>
 <td><%= log.description %></td>
@@ -72,14 +72,16 @@ description
 <% @total_hours = @total_hours + log.spent_hours %>
 <% end %>
 
-<% if @task.status == true %>
- <b>task completed</b>
-<%= button_to "Re Open task", reopen_task_path(@task.id) %>
-<%else%>
-<%= button_to "Complete", completetask_task_path(@task.id) %>
+<% if @current_user == @task.acceptor %>
+		<% if @task.status == true %>
+			<b>task completed</b>
+				<%= button_to "Re Open task", reopen_task_path(@task.id) %>
+			<%else%>
+				<%= button_to "Complete", completetask_task_path(@task.id) %>
+		<%end%>
+	<%else%>
+	
 <%end%>
-
-
 <hr/>
 <tr>
 
