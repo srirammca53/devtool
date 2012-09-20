@@ -6,11 +6,11 @@
   </div>
   <div class="field">
     <%= f.label :task_type %><br />
-    <%= f.select(:task_type, options_for_select(["Bug", "Feature", "Support"])) %>
+    <%= f.select(:task_type, options_for_select(["Analysis", "Collabrate", "Develop","Debug", "Test", "Other"])) %>
   </div>
   <div class="field">
     <%= f.label :disposition %><br />
-    <%= f.text_field :disposition %>
+    <%= f.select(:disposition, options_for_select(["Added", "Planned", "Carried Over", "Discovered" ])) %>
   </div>
   <div class="field">
     <%= f.label :acceptor %><br />

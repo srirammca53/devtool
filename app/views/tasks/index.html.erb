@@ -26,7 +26,13 @@
 			 
 			<tr  align="center" border = "1px">
 				<td width ="200px"><%#= pro.inspect %>
-					<%= link_to ts.name,project_iteration_story_task_path(pro.id,@iteration.id,@story.id,ts.id) %>
+					<%if ts.status == true%>        
+                                       <s><%= link_to ts.name,project_iteration_story_task_path(pro.id,@iteration.id,@story.id,ts.id) %></s>
+                               <%else%>
+                                       <%= link_to ts.name,project_iteration_story_task_path(pro.id,@iteration.id,@story.id,ts.id) %>
+                               <%end%>
+ 
+
 					
 				</td>
 				<td width ="200px">
