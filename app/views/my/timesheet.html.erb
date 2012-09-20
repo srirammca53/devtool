@@ -10,9 +10,13 @@
 <%#= image_tag("construction.png") %>
 <%= form_tag (my_mytimesheet_path) do %>
 
-<%= select_tag "user", options_for_select(User.find(:all).collect{|u|[u.lastname]}) %>
+<%#= select_tag "user", options_for_select(User.find(:all).collect{|u|[u.lastname]}) %>
 <table>
 	<tr >
+
+		<td>
+			Select User: <%= select_tag "user", options_for_select(User.find(:all).collect{|u|[u.lastname]}) %>
+		</td>
 		<td>
 			Start Date:<%= text_field_tag 'start_date', value = ""%>
 		</td>

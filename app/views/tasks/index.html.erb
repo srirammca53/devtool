@@ -1,10 +1,12 @@
+<html>
 <%= stylesheet_link_tag('colorbox')%>
 <%= javascript_include_tag('jquery.min', 'jquery.colorbox')%>
 <% @pro = Project.find(params[:project_id]) %>
 <% @iteration = Iteration.find(params[:iteration_id]) %> 
 <% @story = Story.find(params[:story_id]) %> 
+<% @current_user = User.current.lastname %>
 <%#= link_to "total_tasks", total_tasks_project_iteration_story_tasks_path(@pro.id,@iteration.id,@story.id) %>
-<table >
+<table border="1px" >
 		<p><b>List of Tasks</b></p>
 		<tr >
 			<th width ="200px">Name</th>
@@ -22,7 +24,7 @@
 
 			<% pro = Project.find(params[:project_id]) %>
 			 
-			<tr  align="center">
+			<tr  align="center" border = "1px">
 				<td width ="200px"><%#= pro.inspect %>
 					<%= link_to ts.name,project_iteration_story_task_path(pro.id,@iteration.id,@story.id,ts.id) %>
 					
@@ -52,7 +54,7 @@
 						<%= @remaininghours%>
 				</td>
 				<td width ="50px">
-					<%if !User.current.admin?  %>
+					<% if @current_user == ts.acceptor %>
 					<%= link_to "edit", edit_project_iteration_story_task_path(@project.id, @iteration.id, @story.id, ts.id)%>
 					
 				</td>
@@ -64,15 +66,13 @@
 
 	     <% end %>
 </table>
-<% if User.current.admin? %>
-<p> Tasks list </p>
-<% else %>
+
 <%= link_to "create Task" , new_project_iteration_story_task_path(@project.id, @iteration.id,@story.id) %>
-<% end %>
+
 <script>
 	$('.updatetime').colorbox();
 </script>
 
-
+</html>
 
 
