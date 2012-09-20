@@ -9,7 +9,7 @@
   </div>
   <div class="field">
     <%= f.label :Disposition %><br />
-    <%= f.select(:description, options_for_select(["Planned", "Carried Over", "Added"])) %>
+    <%= f.select(:disposition, options_for_select(["Added", "Carried Over", "Planned"])) %>
   </div>
   <div class="field">
     <%= f.label :Customer %><br />
