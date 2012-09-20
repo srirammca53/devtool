@@ -7,6 +7,10 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
+<div class="field">
+    <%= f.label :type %><br />
+    <%= f.select(:Type, options_for_select(["DEL", "REQ", "FEAT","ACT","TST","SCM","VOC","DEV","RPT"])) %>
+  </div>
   <div class="field">
     <%= f.label :Disposition %><br />
     <%= f.select(:disposition, options_for_select(["Added", "Carried Over", "Planned"])) %>
