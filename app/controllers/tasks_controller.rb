@@ -44,15 +44,15 @@ def create
 	@user.each do |usr|
 		if @task.acceptor == usr.lastname
 		@usermail = usr
-		
 		end
-        end 
+    end 
 	if @task.save
 		@tid = @task.id
 	   TaskMailer.task_creation(@usermail,@iname,@tid).deliver
+	   redirect_to project_iteration_story_task_path(@projectid.id, @iterationid.id, @storyid.id, @tid )
 	end
        #render :action => "show"
-         	redirect_to project_iteration_story_task_path(@projectid.id, @iterationid.id, @storyid.id, @tid )
+         	#redirect_to project_iteration_story_task_path(@projectid.id, @iterationid.id, @storyid.id, @tid )
 
 end
 
@@ -130,15 +130,18 @@ def update_tasks
 end
 
 def logs
- params[:spent_hours].each do |t,values|
-@task = Task.find(t)
-@values = values 
-@spent = @values.values[0]
-@desc = @values.values[1]
-@date = Time.now.to_date
-if @spent != "" 
-@log = @task.logs.create(:spent_hours => @spent , :description => @desc, :report_date => @date )
-end
+		params[:spent_hours].each do |t,values|
+		@task = Task.find(t)
+		@values = values
+		@spent = @values.values[0]
+		@desc = @values.values[1]
+		@date = params["gettingdate"]
+
+		if @spent != ""
+
+			@log = @task.logs.create(:spent_hours => @spent , :description => @desc, :report_date => @date )
+			 redirect_to my_page_path
+		end
 end
 end
 end

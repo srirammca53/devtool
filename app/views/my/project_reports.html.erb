@@ -1,1 +1,68 @@
-<%= @project.to_s %>
+<%@project_final = Project.find(:all, :conditions => {:name => @project_title})%>
+<% @project_final.each do |list|%>
+	<%=list.estimation_time %>
+	<%@pid = list.id%>
+<%end%>
+<html>
+<table width =1000>
+	<tr>
+		<td width = 200>
+			<div id ="collaborators">
+				<b><u>Members</u></b></br></br>
+				<% @memlist = Member.find(:all,:select => :user_id, :conditions => {:project_id => @pid})%>
+				<%@newarr = Array.new%>
+				<ol><% @memlist.each do  |mem|%>
+					<li><%= mem.name%></li>
+					<%@newarr << mem.user_id%><br>
+				<% end%></ol>
+				user ids: <%= @newarr %>
+				<%@roleme = Array.new%>
+				<%@newarr.each do |userid|%>	
+					<%@mem_role = MemberRole.find(:all,:select => :member_id,  :conditions => {:role_id => userid})%>
+					<%@roleme << @mem_role%>
+				<%end%>
+				<%=@roleme%>
+				<%@roleme.each do |rolename|%>
+					
+				<%end%>
+				
+			</div>
+		</td>
+		<td width = 200>
+			<div id ="contentlist">ons: * Check your spelling. * Check our suggested matches as
+			 you type in the Get Quotes box. * Try the results in US & Canada mark</div>
+		</td>
+	</tr>
+		<td width = 200>
+			<div id ="collaborators">hey</div>
+		</td>
+		<td width = 200>
+			<div id ="comparision">hey</div>
+		</td>
+	</tr>
+</table>
+</html>
+<style>
+#collaborators {
+    background: none repeat scroll 0 0 pink;
+    border-radius: 5px 5px 5px 5px;
+    max-width: 87%;
+    min-height: 36px;
+    padding: 14px;
+}
+
+#contentlist{
+	background: none repeat scroll 0 0 pink;
+    border-radius: 5px 5px 5px 5px;
+    max-width: 73%;
+    min-height: 36px;
+    padding: 14px;
+}
+#comparision{
+	background: none repeat scroll 0 0 pink;
+    border-radius: 5px 5px 5px 5px;
+    max-width: 73%;
+    min-height: 36px;
+    padding: 14px;
+}
+</style>

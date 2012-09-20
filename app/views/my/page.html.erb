@@ -48,7 +48,7 @@ text-align :center;
 
 </tr>
 <%= form_tag( logs_tasks_path, :method => :post) do %>
-<span id = "textfordate">Select date:</span> <%= text_field_tag 'gettingdate' ,nil, :onchange=> "myFunction();" %>
+<span id = "textfordate">Select date:</span> <%= text_field_tag 'gettingdate' ,nil, :onchange=> "myFunction();" , :required => true%>
 <%@tid.each do |taskmain|%>
 <% t = taskmain.id %>
   <tr>
