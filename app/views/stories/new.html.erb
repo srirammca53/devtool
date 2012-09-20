@@ -17,7 +17,8 @@
   </div>
   <div class="field">
     <%= f.label :Tracker %><br />
-     <%= f.select :tracker, User.find(:all, :conditions =>"lastname= Admin").collect{|p|[p.lastname]},  {:include_blank => 'select'} %>
+     <%#= f.select :tracker, User.find(:all, :conditions =>"lastname= Admin").collect{|p|[p.lastname]},  {:include_blank => 'select'} %>
+      <%= f.select :tracker, User.find(:all).collect{|p|[p.lastname]},  {:include_blank => 'select'},   {:except => 'Admin'} %>
   </div>
  <div class="field">
     <%= f.label :Status %><br />
