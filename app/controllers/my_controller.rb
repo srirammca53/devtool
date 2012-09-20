@@ -43,14 +43,14 @@ class MyController < ApplicationController
 
   # Show user's page
   def page
-	$date = Time.now
-	@day = $date.wday
-	if @day.to_i == 4
-		@user = User.current.id
-		@us = User.find(@user) 
-		usermail = @us
-		TaskMailer.weekly_mail.deliver
-	end
+$date = Time.now
+@day = $date.wday
+if @day.to_i == 4
+	@user = User.current.id
+	@us = User.find(@user) 
+	usermail = @us
+	#TaskMailer.weekly_mail.deliver
+end
     @user = User.current
    # @project = Project.find(params[:project_id])
     @blocks = @user.pref[:my_page_layout] || DEFAULT_LAYOUT
@@ -215,10 +215,8 @@ def generate_reports
 	
 end
 def project_reports
-	@project_title = params[:project]
-	
-	
-   
+@project = params[:project]
+
 end
 def user_reports
 @user = params[:user]
@@ -227,6 +225,7 @@ end
 
 def projectreport
 @project = params[:project]
+
 end
 
 def userreport

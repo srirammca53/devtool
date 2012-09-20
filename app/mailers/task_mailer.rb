@@ -1,6 +1,6 @@
 class TaskMailer < ActionMailer::Base
   default from: "redmine.logicmatter@gmail.com"
-def task_creation(usermail,iname,tid)task_creation(usermail,iname,tid)
+def task_creation(usermail,iname,tid)
 @task_acceptor = usermail
 @pro_name = iname
 @task_name = tid
