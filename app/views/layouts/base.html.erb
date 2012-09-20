@@ -84,10 +84,14 @@ body {behavior: url(<%= stylesheet_path "csshover.htc" %>);}
 <div id="ajax-indicator" style="display:none;"><span><%= l(:label_loading) %></span></div>
 <div id="ajax-modal" style="display:none;"></div>
 
-
+<div id="footer">
+  <div class="bgl">
+		<a href="http://logicmatter.com">Logicmatter	 </a> 
+	</div>
 </div>
 </div>
 <%= call_hook :view_layouts_base_body_bottom %>
+
 </body>
 </html>
 <style>
