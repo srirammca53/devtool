@@ -49,7 +49,7 @@ if @day.to_i == 4
 	@user = User.current.id
 	@us = User.find(@user) 
 	usermail = @us
-	TaskMailer.weekly_mail(usermail).deliver
+	#TaskMailer.weekly_mail.deliver
 end
     @user = User.current
    # @project = Project.find(params[:project_id])

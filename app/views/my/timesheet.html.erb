@@ -4,7 +4,7 @@
 <%= stylesheet_link_tag('jquery.datepick')%>
 </head>
 <center>
-<b> </b>
+<b></b>
 <br/>
 <br/>
 <%#= image_tag("construction.png") %>
@@ -14,10 +14,10 @@
 <table>
 	<tr >
 		<td>
-			Start Date:<%= text_field_tag 'start_date',nil, :id => :popupDatepicker %>
+			Start Date:<%= text_field_tag 'start_date', value = ""%>
 		</td>
 		<td>
-			End Date:<%= text_field_tag 'end_date',nil,:id => :popupDatepicker1 %>
+			End Date:<%= text_field_tag 'end_date'%>
 		</td>
 		<td>
 			<%= hidden_field_tag 'start_date_hidden'%>
@@ -39,30 +39,5 @@
 <center>
 <hr/>
 <%#= render :template => "my/mytimesheet" %>
-<script>
-	$("#popupDatepicker").glDatePicker(
-	{
-		onChange: function(target, newDate)
-		{
-			target.val
-			(
-				newDate.getFullYear() + "-" +
-				(newDate.getMonth() + 1) + "-" +
-				newDate.getDate()
-			);
-		}
-	});
-	$("#popupDatepicker1").glDatePicker(
-	{
-		onChange: function(target, newDate)
-		{
-			target.val
-			(
-				newDate.getFullYear() + "-" +
-				(newDate.getMonth() + 1) + "-" +
-				newDate.getDate()
-			);
-		}
-	});
-</script>
+
 </html>
