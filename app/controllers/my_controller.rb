@@ -258,4 +258,22 @@ raise values.values.inspect
 end
 end
 
+def issue
+@issue = params[:id]
+@task = Task.new
+end
+
+def add_issuetask
+@name = params[:name]
+@issue = params[:id]
+
+@task_type = params[:task_type]
+@disposition = params[:disposition]
+@acceptor = params[:acceptor]
+@estimated_hours = params[:estimated_hours]
+@description = params[:description]
+@task = Task.create(:name => @name,:task_type => @task_type, :disposition => @disposition , :acceptor => @acceptor, :estimated_hours => @estimated_hours, :description => @description,:story_id => 989 ,:issue_id => @issue)
+@task.save
+end
+
 end

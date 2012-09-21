@@ -52,6 +52,9 @@ class IssuesController < ApplicationController
   helper :timelog
   helper :gantt
   include Redmine::Export::PDF
+    def issue_addtask
+	raise "yes".inspect
+    end
 
   def index
     retrieve_query
@@ -173,6 +176,7 @@ class IssuesController < ApplicationController
       format.xml  { }
     end
   end
+  
 
   def update
     return unless update_issue_from_params
