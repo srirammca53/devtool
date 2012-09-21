@@ -1,7 +1,7 @@
 <html>
 <head>
-<%= javascript_include_tag('jquery.min', 'jquery.datepick')%>
-<%= stylesheet_link_tag('jquery.datepick')%>
+<%= stylesheet_link_tag( 'default')%>
+<%= javascript_include_tag('jquery.min', 'glDatePicker.min', 'date')%>
 </head>
 <center>
 <b></b>
@@ -18,10 +18,10 @@
 			Select User: <%= select_tag "user", options_for_select(User.find(:all).collect{|u|[u.lastname]}) %>
 		</td>
 		<td>
-			Start Date:<%= text_field_tag 'start_date', value = ""%>
+			Start Date:<%= text_field_tag 'start_date', value = "", :id => :popupDatepicker%>
 		</td>
 		<td>
-			End Date:<%= text_field_tag 'end_date'%>
+			End Date:<%= text_field_tag 'end_date',  value = "", :id => :popupDatepicker1%>
 		</td>
 		<td>
 			<%= hidden_field_tag 'start_date_hidden'%>
@@ -43,5 +43,30 @@
 <center>
 <hr/>
 <%#= render :template => "my/mytimesheet" %>
-
+<script>
+	$("#popupDatepicker").glDatePicker(
+	{
+		onChange: function(target, newDate)
+		{
+			target.val
+			(
+				newDate.getFullYear() + "-" +
+				(newDate.getMonth() + 1) + "-" +
+				newDate.getDate()
+			);
+		}
+	});
+	$("#popupDatepicker1").glDatePicker(
+	{
+		onChange: function(target, newDate)
+		{
+			target.val
+			(
+				newDate.getFullYear() + "-" +
+				(newDate.getMonth() + 1) + "-" +
+				newDate.getDate()
+			);
+		}
+	});
+</script>
 </html>
