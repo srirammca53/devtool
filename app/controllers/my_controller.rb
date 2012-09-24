@@ -239,19 +239,21 @@ end
 
 def issue
 @issue = params[:id]
-@task = Task.new
 end
 
 def add_issuetask
-@name = params[:name]
 @issue = params[:id]
+@iss = Issue.find(@issue)
+@name = params[:name]
+@story_id = 989
 @task_type = params[:task_type]
 @disposition = params[:disposition]
 @acceptor = params[:acceptor]
 @estimated_hours = params[:estimated_hours]
 @description = params[:description]
-@task = Task.create(:name => @name,:task_type => @task_type, :disposition => @disposition , :acceptor => @acceptor, :estimated_hours => @estimated_hours, :description => @description,:story_id => 989 ,:issue_id => @issue)
+@task = @iss.tasks.create(:name => @name,:task_type => @task_type, :disposition => @disposition , :acceptor => @acceptor, :estimated_hours => @estimated_hours, :description => @description,:story_id => @story_id )
 @task.save
+
 end
 
 end

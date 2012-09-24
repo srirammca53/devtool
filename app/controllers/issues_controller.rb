@@ -282,6 +282,10 @@ class IssuesController < ApplicationController
     end
   end
 
+  def task
+  raise "issues".inspect
+  end 
+
   def destroy
     @hours = TimeEntry.sum(:hours, :conditions => ['issue_id IN (?)', @issues]).to_f
     if @hours > 0

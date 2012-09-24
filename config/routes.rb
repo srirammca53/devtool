@@ -172,7 +172,7 @@ RedmineApp::Application.routes.draw do
     match 'issues/new', :controller => 'issues', :action => 'new', :via => [:put, :post], :as => 'issue_form'
     match 'issues/issue', :controller => 'issues', :action => 'issue', :via => [:put, :post]
     match 'issues/add_issuetask', :controller => 'issues', :action => 'add_issuetask', :via => [:put, :post]
-
+     match 'issues/task', :controller => 'issues', :action => 'task', :via => [:put, :post]
     resources :files, :only => [:index, :new, :create]
 
     resources :versions, :except => [:index, :show, :edit, :update, :destroy] do
@@ -224,6 +224,7 @@ RedmineApp::Application.routes.draw do
   end
 
   resources :issues do
+   resources :tasks
     collection do
       match 'bulk_edit', :via => [:get, :post]
       post 'bulk_update'
