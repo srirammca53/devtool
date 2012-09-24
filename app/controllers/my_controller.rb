@@ -211,44 +211,23 @@ def reports
 end
 
 def generate_reports
-	@option = params[:select]
+@start = params[:start]
+@end = params[:end]
+@user = params[:user]
+@pro1 = params[:project]
 	
 end
-def project_reports
-@project = params[:project]
 
-end
-def user_reports
-@user = params[:user]
-raise "ysese ".inspect
-end
 
-def projectreport
-@project = params[:project]
-
-end
-
-def userreport
-@users = User.find(:all)
-end
-
-def finalreport
-@project = params[:project]
-@user = params[:user]
- 
-
-end
 
 def timesheet
 @user = User.current.lastname 
-
 end
 
 def mytimesheet
 @start = params[:start_date]
 @end = params[:end_date]
 @user = params[:user]
-
 end
 
 
@@ -266,7 +245,6 @@ end
 def add_issuetask
 @name = params[:name]
 @issue = params[:id]
-
 @task_type = params[:task_type]
 @disposition = params[:disposition]
 @acceptor = params[:acceptor]
