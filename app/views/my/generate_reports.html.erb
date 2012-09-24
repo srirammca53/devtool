@@ -1,5 +1,6 @@
 <html>
 <body>
+<% @flag = 0 %>
    <p>
 	<b> From </b>
 	<%= @start %>
@@ -8,6 +9,65 @@
    </p>
 <b> Selected User : <%= @user %></b><br/>
  <b> For the project : <%= @pro1 %></b>
-<%= @proj =  Project.find(:all,:conditions => {:name => @pro1 }) %>
+<hr/>
+<table>
+<tr>
+<th>Report Date </th>
+<th> project Name</th>
+<th> Task Name </th>
+<th>Task Spent hours </th>
+<th>Task Estimated Time </th>
+<th>Comment </th>
+</tr>
+<% @us = User.find(:all , :conditions => {:lastname => @user }) %>
+<% @us.each do |user| %>
+	<% @proj =  Project.find(:all,:conditions => {:name => @pro1 }) %>
+	<% @proj.each do |pro| %>
+		<% @mem = pro.members.find(:all , :conditions=>{:project_id => pro.id}) %>
+		<% @mem.each do |member| %>
+			<%if  member.user_id == user.id && member.project_id == pro.id  %>
+				
+				<% @iterations = Iteration.find(:all ,:conditions => {:project_id => pro.id }) %>
+				<% @iterations.each do |iteration| %>
+					
+					<% @stories = Story.find(:all ,:conditions => {:iteration_id => iteration.id }) %>
+					<% @stories.each do |story| %>
+						
+						<% @tasks = Task.find(:all,:conditions => {:story_id => story.id}) %>
+						<% @tasks.each do |task| %>
+							<% @logs = Log.find(:all ,:conditions => {:task_id => task.id }) %>
+							<% @logs.each do |log| %>
+							<% if log.report_date > @start.to_date && log.report_date < @end.to_date %>
+							<tr>
+								<td align=center><%= log.report_date %></td>
+								<td align=center><%= pro.name %></td>
+								<td align=center><%= task.name %></td>
+								<td align=center><%= log.spent_hours %></td>
+								<td align=center><%= task.estimated_hours %></td>
+								<td align=center><%= log.description %></td>
+							</tr>
+							<% end %>
+							<% end %>
+						<% end %>
+					<% end %>
+				<% end %>
+
+
+
+
+
+
+
+			<% else %>
+				<% @flag += 1 %>
+			<% end %>
+			
+		<% end %>
+	<% end %>
+<% end %>
+<% if @flag >= 0 %>
+	<p> selected user is not a part of the project </p>
+<% end %>
+</table>
 </body>
 </html>
