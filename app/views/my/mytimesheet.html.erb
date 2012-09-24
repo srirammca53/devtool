@@ -78,6 +78,39 @@ Time sheet
 </tr>
 </table>
 </table>
+<hr/>
+<b>Actual hours by project </b>
+<table bgcolor= #D3D8D8 >
+<tr>
+<th> Project name </th>
+<th> Project Type </th>
+<th> Spent hours </th>
+</tr>
+<% @tasks = Task.find(:all,:conditions=>{:acceptor=>@user}) %>
+		<% @tasks.each do |t| %>
+
+		<% @stories = Story.find(:all,:conditions=>{:id=>t.story_id}) %>
+			<% @stories.each do |st| %>
+               		 <% @iterations = Iteration.find(:all,:conditions=>{:id=>st.iteration_id}) %>
+				 <% @iterations.each do |it| %>
+				 <% @projects = Project.find(:all,:conditions=>{:id=>it.project_id}) %>
+					 <% @projects.each do |pt| %>
+						<tr>
+								
+								<td  width=10% align=center><%= pt.name %></td>
+								<td  width=10% align=center><%= pt.typeofproject %></td>
+						 <% @project_spent = 0  %> 
+						<% t.logs.each do|log| %>
+							<% @project_spent = @project_spent + log.spent_hours %>	
+						<% end %>
+						<td width=10% align=center><%= @project_spent %></td>
+						</tr>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+</table>
+
 
 </body>
 </html>
