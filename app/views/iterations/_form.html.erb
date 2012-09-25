@@ -1,4 +1,3 @@
-
 <html>
 
 <% @flag = 0 %>
@@ -43,58 +42,58 @@
 
 </html>
 <script>
-	$("#popupDatepicker").glDatePicker(
-	{
-		onChange: function(target, newDate)
-		{
-			target.val
-			(
-				newDate.getFullYear() + "-" +
-				(newDate.getMonth() + 1) + "-" +
-				newDate.getDate()
-			);
-		}
-	});
-	$("#popupDatepicker1").glDatePicker(
-	{
-		onChange: function(target, newDate)
-		{
-			target.val
-			(
-				newDate.getFullYear() + "-" +
-				(newDate.getMonth() + 1) + "-" +
-				newDate.getDate()
-			);
-		}
-	});
+$("#popupDatepicker").glDatePicker(
+{
+onChange: function(target, newDate)
+{
+target.val
+(
+newDate.getFullYear() + "-" +
+(newDate.getMonth() + 1) + "-" +
+newDate.getDate()
+);
+}
+});
+$("#popupDatepicker1").glDatePicker(
+{
+onChange: function(target, newDate)
+{
+target.val
+(
+newDate.getFullYear() + "-" +
+(newDate.getMonth() + 1) + "-" +
+newDate.getDate()
+);
+}
+});
 </script>
 <script>
  function myFunction()
  {
-	var current_ele = $("#iteration_iterationtype").val();
-	if(current_ele == "Weekly")
-	{	
-		var st_date = $("#popupDatepicker").val();
-		var date1 = Date.parse(st_date);
-		date1.setDate(date1.getDate() + 7);
-		var testda = date1.toString("yyyy-MM-dd");
-		$("#popupDatepicker1").val(testda);
-	}else
-	if(current_ele == "Monthly")
-	{
-		var st_date = $("#popupDatepicker").val();
-		var date1 = Date.parse(st_date);
-		date1.setDate(date1.getDate() + 30);
-		var testda = date1.toString("yyyy-MM-dd");
-		$("#popupDatepicker1").val(testda);
-	}
-	else
-	{
-		var st_date = $("#popupDatepicker").val();
-		var date1 = Date.parse(st_date);
-		date1.setDate(date1.getDate() + 15);
-		var testda = date1.toString("yyyy-MM-dd");
-		$("#popupDatepicker1").val(testda);
-	}
+var current_ele = $("#iteration_iterationtype").val();
+if(current_ele == "Weekly")
+{	
+var st_date = $("#popupDatepicker").val();
+var date1 = Date.parse(st_date);
+date1.setDate(date1.getDate() + 7);
+var testda = date1.toString("yyyy-MM-dd");
+$("#popupDatepicker1").val(testda);
+}else
+if(current_ele == "Monthly")
+{
+var st_date = $("#popupDatepicker").val();
+var date1 = Date.parse(st_date);
+date1.setDate(date1.getDate() + 30);
+var testda = date1.toString("yyyy-MM-dd");
+$("#popupDatepicker1").val(testda);
+}
+else
+{
+var st_date = $("#popupDatepicker").val();
+var date1 = Date.parse(st_date);
+date1.setDate(date1.getDate() + 15);
+var testda = date1.toString("yyyy-MM-dd");
+$("#popupDatepicker1").val(testda);
+}
  }
 </script>
