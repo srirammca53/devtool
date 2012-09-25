@@ -14,14 +14,15 @@
 </tr>
 <hr/>
 <%= form_tag (assign_backlogs_path) do %>
-<% @stories.each do |story| %>
-		<% story.tasks.each do |task| %>
+<% @tasks = Task.find(:all) %>
+<% @tasks.each do |task| %>
 		<tr>
+               <% if task.story_id == 989 %>
 		<td><%= check_box_tag "tasks[]", task.id %></td>
 		<td><b><%= task.name %></b></td>
 		</tr>
 		<% end %>
-	<% end %> 
+   <% end %>
 
 </table>
 <h3> Select iteration which you need to select </h3>

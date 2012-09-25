@@ -1,0 +1,30 @@
+<html>
+<%= form_tag ( my_add_issuetask_path(:id => @issue)) do %>
+ <div class="field">
+    <%= label_tag :name %><br />
+    <%= text_field_tag :name %>
+  </div>
+  <div class="field">
+    <%= label_tag :task_type %><br />
+    <%= select_tag(:task_type, options_for_select(["Analysis", "Collabrate", "Develop","Debug", "Test", "Other"])) %>
+  </div>
+  <div class="field">
+    <%= label_tag :disposition %><br />
+    <%= select_tag(:disposition, options_for_select(["Added", "Planned", "Carried Over", "Discovered" ])) %>
+  </div>
+  <div class="field">
+    <%= label_tag :acceptor %><br />
+	<%= select_tag "acceptor",   options_for_select(User.find(:all, :conditions =>"lastname= Admin").collect{|p|[p.lastname]}), :id=>"selection" %>
+ <div class="field">
+    <%= label_tag :estimated_hours %><br />
+    <%= text_field_tag :estimated_hours%>
+  </div>
+ <div class="field">
+    <%= label_tag :description %><br />
+    <%= text_field_tag :description %>
+  </div>
+  
+<%= submit_tag "Done" %>
+<% end %>
+
+</html>

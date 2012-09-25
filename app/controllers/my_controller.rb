@@ -211,44 +211,23 @@ def reports
 end
 
 def generate_reports
-	@option = params[:select]
+@start = params[:start]
+@end = params[:end]
+@user = params[:user]
+@pro1 = params[:project]
 	
 end
-def project_reports
-@project = params[:project]
 
-end
-def user_reports
-@user = params[:user]
-raise "ysese ".inspect
-end
 
-def projectreport
-@project = params[:project]
-
-end
-
-def userreport
-@users = User.find(:all)
-end
-
-def finalreport
-@project = params[:project]
-@user = params[:user]
- 
-
-end
 
 def timesheet
 @user = User.current.lastname 
-
 end
 
 def mytimesheet
 @start = params[:start_date]
 @end = params[:end_date]
 @user = params[:user]
-
 end
 
 
@@ -256,6 +235,25 @@ def logs
  params[:spent_hours].each do |t,values|
 raise values.values.inspect
 end
+end
+
+def issue
+@issue = params[:id]
+end
+
+def add_issuetask
+@issue = params[:id]
+@iss = Issue.find(@issue)
+@name = params[:name]
+@story_id = 989
+@task_type = params[:task_type]
+@disposition = params[:disposition]
+@acceptor = params[:acceptor]
+@estimated_hours = params[:estimated_hours]
+@description = params[:description]
+@task = @iss.tasks.create(:name => @name,:task_type => @task_type, :disposition => @disposition , :acceptor => @acceptor, :estimated_hours => @estimated_hours, :description => @description,:story_id => @story_id )
+@task.save
+
 end
 
 end

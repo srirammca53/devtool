@@ -6,16 +6,18 @@
 <h2>REPORTS</h2>
 </center>
 <hr/>
-<%#= form_tag( my_generate_reports_path, :method => :post) do %>
-						
-								  <%#= select_tag('select', options_for_select(["Project", "User"])) %>
-							
-								<%#= submit_tag('select')%> 
-		<b> This Page is under construction ..... </b>
+<%= form_tag( my_generate_reports_path, :method => :post) do %>	
+<b> From </b> <%= text_field_tag "start" %>
+<b> TO </b> <%= text_field_tag "end" %>
+
+<%= select_tag  "user",   options_for_select(User.find(:all, :conditions =>"lastname= Admin").collect{|p|[p.lastname]}), :id=>"selection" %>
+<%= select_tag "project", options_for_select(Project.find(:all).collect{|p|[p.name]}), :id=>"selection"  %>
+<%= submit_tag('select')%> 
+		
 <br/>
 <br/>
-<%= image_tag("construction.png") %>					
-						<%# end %> 
+<%#= image_tag("construction.png") %>					
+<% end %> 
 <%#= link_to "project", my_projectreport_path %><br/>
 <%#= link_to "user", my_userreport_path %>
 </body>

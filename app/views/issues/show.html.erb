@@ -88,7 +88,9 @@
 <hr />
 <div id="issue_tree">
 <div class="contextual">
-  <%= link_to "Add Task",  issue_tasks_path %>
+<% @issue = Issue.find(params[:id]) %>
+<% @issue.id %>
+  <%= link_to "Add Task", my_issue_path(:id => @issue.id) %>
 </div>
 <p><strong><%=l(:label_subtask_plural)%></strong></p>
 <%= render_descendants_tree(@issue) unless @issue.leaf? %>

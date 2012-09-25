@@ -7,15 +7,14 @@ Time sheet
 <p>From <%= @start %> to <%= @end %></p>
 <% @total_time = 0 %>
 <table width=100%>
-	<tr>
+	<tr bgcolor= #D3D8D8>
 		<th width=10%>Date</th>
 		<th  width=10%>Project</th>
 		<th  width=10%>Iteration</th>
 		<th  width=10%>Story</th>
 		<th  width=10%>Task</th>
-		<th  width=10%>Estimated</th>
-		<th width=10%>Spent Hours</th>
 		<th width=30%>Description</th>
+		<th width=10%>Spent Hours</th>
 	</tr>
 	<% @tasks = Task.find(:all,:conditions=>{:acceptor=>@user}) %>
 		<% @tasks.each do |t| %>
@@ -33,17 +32,85 @@ Time sheet
 								<td  width=10% align=center><%= it.name %></td>
 								<td  width=10% align=center><%= st.name %></td>
 								<td  width=10% align=center><%= t.name %></td>
-								<td  width=10% align=center><%= t.estimated_hours %></td>
-								<td width=10% align=center><%= log.spent_hours %> </td>
 								<td width=30% align= center><%= log.description %></td>
+								<td width=10% align=center><%= log.spent_hours %> </td>
+								
 							</tr>
 						<% end %>
 					<% end %>
 				<% end %>
 			<% end %>
 		<% end %>
+
 </table>
 <hr/>
-<b>Total Spent Hours </b> :	<%= @total_time %>
+<table border = "1px" width = 100% bgcolor = #D3D8D8>
+<tr>
+<td width = 90% >Total Spent Hours </td>	<td  align=center><%= @total_time %></td>
+</tr>
+</table>
+<br/>
+<font color = #FF8900 > <big> Daily Time Sheet </big > </font>
+<% @st1 = @start %>
+<table border="1px">
+<% @total_days = @end.to_date - @start.to_date %>
+<tr bgcolor= #D3D8D8>
+<% for i in 0..@total_days.to_i %>
+<th ><%= @st1 %></th>
+<% @st1 = @st1.to_date + 1.day %>
+<% end %>
+</tr>
+<tr>
+<% for i in 0..@total_days.to_i %>
+<% @tasks = Task.find(:all,:conditions => {:acceptor => @user})%>
+<% @log_time = 0 %>
+
+<% @tasks.each do |task| %>
+	<% task.logs.each do |log| %>
+		<% if @start.to_date == log.report_date %>
+		  <% @log_time = @log_time + log.spent_hours %>
+		<% end %>
+	<% end %>
+<% end %>
+<td ><%= @log_time %></td>
+<% @start =  @start.to_date + 1.day %>
+<% end %>
+</tr>
+</table>
+</table>
+<hr/>
+<b>Actual hours by project </b>
+<table bgcolor= #D3D8D8 >
+<tr>
+<th> Project name </th>
+<th> Project Type </th>
+<th> Spent hours </th>
+</tr>
+<% @tasks = Task.find(:all,:conditions=>{:acceptor=>@user}) %>
+		<% @tasks.each do |t| %>
+
+		<% @stories = Story.find(:all,:conditions=>{:id=>t.story_id}) %>
+			<% @stories.each do |st| %>
+               		 <% @iterations = Iteration.find(:all,:conditions=>{:id=>st.iteration_id}) %>
+				 <% @iterations.each do |it| %>
+				 <% @projects = Project.find(:all,:conditions=>{:id=>it.project_id}) %>
+					 <% @projects.each do |pt| %>
+						<tr>
+								
+								<td  width=10% align=center><%= pt.name %></td>
+								<td  width=10% align=center><%= pt.typeofproject %></td>
+						 <% @project_spent = 0  %> 
+						<% t.logs.each do|log| %>
+							<% @project_spent = @project_spent + log.spent_hours %>	
+						<% end %>
+						<td width=10% align=center><%= @project_spent %></td>
+						</tr>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+</table>
+
+
 </body>
 </html>

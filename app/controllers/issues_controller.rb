@@ -52,6 +52,9 @@ class IssuesController < ApplicationController
   helper :timelog
   helper :gantt
   include Redmine::Export::PDF
+    def issue_addtask
+	raise "yes".inspect
+    end
 
   def index
     retrieve_query
@@ -173,6 +176,7 @@ class IssuesController < ApplicationController
       format.xml  { }
     end
   end
+  
 
   def update
     return unless update_issue_from_params
@@ -277,6 +281,10 @@ class IssuesController < ApplicationController
       redirect_back_or_default({:controller => 'issues', :action => 'index', :project_id => @project})
     end
   end
+
+  def task
+  raise "issues".inspect
+  end 
 
   def destroy
     @hours = TimeEntry.sum(:hours, :conditions => ['issue_id IN (?)', @issues]).to_f

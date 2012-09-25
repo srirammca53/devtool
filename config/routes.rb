@@ -19,7 +19,8 @@ RedmineApp::Application.routes.draw do
 	  resources :tasks do
 			collection do
 			   post 'logs'
-			   post 'issue'
+			   #post 'issue'
+			   
 			end
 			member do
 				post 'completetask'
@@ -110,6 +111,8 @@ RedmineApp::Application.routes.draw do
   match 'my/timesheet', :controller => 'my', :action => 'timesheet', :via => [:get, :post]
   match 'my/mytimesheet', :controller => 'my', :action => 'mytimesheet', :via => [:get, :post]
   match 'my/logs', :controller => 'my', :action => 'logs', :via => [:get, :post]
+  match 'my/issue', :controller => 'my', :action => 'issue', :via => [:get, :post]
+  match 'my/add_issuetask', :controller => 'my', :action => 'add_issuetask', :via => [:put, :post]
   resources :users
   match 'users/:id/memberships/:membership_id', :to => 'users#edit_membership', :via => :put, :as => 'user_membership'
   match 'users/:id/memberships/:membership_id', :to => 'users#destroy_membership', :via => :delete
@@ -167,7 +170,9 @@ RedmineApp::Application.routes.draw do
     end
     # issue form update
     match 'issues/new', :controller => 'issues', :action => 'new', :via => [:put, :post], :as => 'issue_form'
-
+    match 'issues/issue', :controller => 'issues', :action => 'issue', :via => [:put, :post]
+    match 'issues/add_issuetask', :controller => 'issues', :action => 'add_issuetask', :via => [:put, :post]
+     match 'issues/task', :controller => 'issues', :action => 'task', :via => [:put, :post]
     resources :files, :only => [:index, :new, :create]
 
     resources :versions, :except => [:index, :show, :edit, :update, :destroy] do
@@ -219,9 +224,11 @@ RedmineApp::Application.routes.draw do
   end
 
   resources :issues do
+   resources :tasks
     collection do
       match 'bulk_edit', :via => [:get, :post]
       post 'bulk_update'
+      post 'issue_addtask'
     end
     resources :time_entries, :controller => 'timelog' do
       collection do

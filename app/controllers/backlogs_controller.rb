@@ -15,5 +15,9 @@ end
 def assign
 @tasks = params[:tasks]
 @iteration = params[:name]
+@tasks.each do |task|
+raise task.inspect
+end
+
 end
 end

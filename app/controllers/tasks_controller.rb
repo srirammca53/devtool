@@ -92,6 +92,10 @@ def reopen
 	redirect_to  project_iteration_story_tasks_path( @proejctid , @itid , @task_id.story_id , @task_id.id)
 end
 
+def issue
+	raise "yes".inspect
+end
+
 def update
     @project = Project.find(params[:project_id])
     @iteration = @project.iteration.find(params[:iteration_id])
@@ -113,9 +117,7 @@ def log
  render :layout => false
 end
 
-def issue
-	raise "yes".inspect
-end
+
 
 def show
  @pro = Project.find(params[:project_id])
