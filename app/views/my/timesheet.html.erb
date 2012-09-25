@@ -15,8 +15,10 @@
 	<tr >
 
 		<td>
-			Select User: <%= select_tag "user", options_for_select(User.find(:all).collect{|u|[u.lastname]}) %>
+			<% @user = User.current.name %>
+			<h3> <font color = "blue" > <%= @user.capitalize %>:</font></h3>
 		</td>
+
 		<td>
 			Start Date:<%= text_field_tag 'start_date', value = "", :id => :popupDatepicker%>
 		</td>
