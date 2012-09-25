@@ -29,9 +29,11 @@ Time sheet
 							<tr>
 								<td width=10% align=center><%= log.report_date %></td>
 								<td  width=10% align=center><%= link_to pt.name, project_path(pt.id) %></td>
-								<td  width=10% align=center><%= it.name %></td>
-								<td  width=10% align=center><%= st.name %></td>
-								<td  width=10% align=center><%= t.name %></td>
+								<td  width=10% align=center><%= link_to it.name, project_iteration_path(pt.id,it.id) %></td>
+								<td  width=10% align=center>
+								<%= link_to st.name, project_iteration_story_path(pt.id,it.id,st.id)%></td>
+								<td  width=10% align=center>
+								<%= link_to t.name,project_iteration_story_task_path(pt.id,it.id,st.id,t.id) %></td>
 								<td width=30% align= center><%= log.description %></td>
 								<td width=10% align=center><%= log.spent_hours %> </td>
 								

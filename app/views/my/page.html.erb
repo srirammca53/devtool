@@ -70,7 +70,9 @@ text-align :center;
 						<td width=10%><% @actual_hours = 0 %>
 							     <% @log = Log.find(:all, :conditions => {:task_id => taskmain.id}) %>
 										<% @log.each do |tlog|%>
+										<% tlog.spent_hours %>
 										<% @actual_hours = @actual_hours.to_i + tlog.spent_hours.to_i %>
+										
 										<% end %>
 							      
 					        <%= @actual_hours %>
