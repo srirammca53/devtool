@@ -1,19 +1,39 @@
 <html>
-	<h2><b><u>My Projects</u></b></h2>
-	<hr/>
-	<% i=0 %>
-	<% @member.each do |em| %>
-	<% @pro_id = em.project_id %>
-		<table>
+	
+		<h2><b><u>My Projects</u></b></h2>
+
+		<table border = "2">
+		<tr >
+			<th>
+				Projects
+			</th>
+			<th>
+				Iterations
+			</th>
+			<th>
+				Stories
+			</th>
+		</tr>
 		<tr>
-		<% @myprojects_i = Project.find(:all, :conditions => {:id => @pro_id}) %>
-		<% @myprojects_i.each do |pro| %>
-			<b><%= link_to pro.name, project_path(pro.id) %></b><br/><br/>
-		<% end %>
+			<% i=0 %>
+			<% @member.each do |em| %>
+			<% @pro_id = em.project_id %>
+					
+						<td>
+							<% @myprojects_i = Project.find(:all, :conditions => {:id => @pro_id}) %>
+							<% @myprojects_i.each do |pro| %>
+								<b><%= link_to pro.name, project_path(pro.id) %></b><br/><br/>
+							<% end %>
+						</td>
+						<td>
+							<% @iteration_i = Iteration.find(:all, :conditions => {:project_id => @pro_id  })%>
+							<%= link_to  @iteration_i.count, project_iterations_path(@pro_id )%>
+						</td>
+				
+			<% end %>
+			
 		</tr>
 		</table>
-	<% end %>
+
 </html>
-
-
 
