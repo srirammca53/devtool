@@ -227,7 +227,7 @@ end
 def mytimesheet
 @start = params[:start_date]
 @end = params[:end_date]
-@user = params[:user]
+@user = User.current.lastname
 end
 
 
