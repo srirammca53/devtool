@@ -157,6 +157,7 @@ Redmine::MenuManager.map :top_menu do |menu|
  menu.push :projects, { :controller => 'projects', :action => 'index' },  :if => Proc.new { User.current.admin? }, :last => true, :caption => :label_project_plural
  
   menu.push :administration, { :controller => 'admin', :action => 'index' }, :if => Proc.new { User.current.admin? }, :last => true
+  # menu.push :welcome_to_LogicMatter_Visper_Tool , :myprojects_path
  # menu.push :help, Redmine::Info.help_url, :last => true
 end
 
@@ -165,6 +166,7 @@ Redmine::MenuManager.map :account_menu do |menu|
   menu.push :register, { :controller => 'account', :action => 'register' }, :if => Proc.new { !User.current.logged? && Setting.self_registration? }
   menu.push :my_account, { :controller => 'my', :action => 'account' }, :if => Proc.new { User.current.logged? }
   menu.push :logout, :signout_path, :if => Proc.new { User.current.logged? }
+  
 end
 
 Redmine::MenuManager.map :application_menu do |menu|
