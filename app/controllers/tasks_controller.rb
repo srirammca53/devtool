@@ -138,10 +138,12 @@ def logs
 		@spent = @values.values[0]
 		@desc = @values.values[1]
 		@date = params["gettingdate"]
-			if @spent != "" 
+			if @spent != "" 	
 				@log = @task.logs.create(:spent_hours => @spent , :description => @desc, :report_date => @date )
 				redirect_to my_page_path and return
 			end
+			
 	end
+		
 end
 end

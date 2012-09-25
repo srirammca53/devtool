@@ -89,7 +89,7 @@
 			  </ul>
 		
 			  <% if User.current.allowed_to?(:view_issues, @project) %>
-			  <div class="issues box">
+			  <div class="issues_box_test">
 				<h3><%=l(:label_issue_tracking)%></h3>
 				<ul>
 				<% for tracker in @trackers %>
@@ -179,3 +179,16 @@
 </body>
 </html>
 <% request.referer %>
+
+<style>
+	  .issues_box_test 
+	  {
+			border: 1px solid #E4E4E4;
+			color: #505050;
+			line-height: 1.5em;
+			margin-bottom: 10px;
+			padding: 6px;
+			width: 190%;
+			background-color: #F5FCFC;
+    }
+	</style>
