@@ -1,48 +1,59 @@
 <html>
-<p> New Userstory for <b><%#= @story.name %></b> </p>
-<table border="1" >
+<p> New Userstory for Iteration -> <b><%= @iteration.name %></b> </p>
+<div id ="new_look">
+	<table >
+	
+	<%= form_for @story, :url => {:action => :create, :id => @iteration_id } do |f| %>
+	 <tr>
+		 <td id="tdleft"><%= f.label :name %></td>
+		<td><%= f.text_field :name %></td>
+		 </tr>
+	 <tr>
+		 <td id="tdleft">
+		<%= f.label :type %></td>
+		<td><%= f.select(:Type, options_for_select(["DEL", "REQ", "FEAT","ACT","TST","SCM","VOC","DEV","RPT"])) %></td>
+		</tr>
+	 </tr>
+	  <td id="tdleft">
+		<%= f.label :Disposition %></td>
+		<td><%= f.select(:disposition, options_for_select(["Added", "Carried Over", "Planned"])) %></td>
+	  </tr>
+	  <tr>
+		<td id="tdleft"><%= f.label :Customer %></td>
+		<td><%= f.select :customer, User.find(:all, :conditions =>"lastname= Admin").collect{|p|[p.lastname]},  {:include_blank => 'select'} %></td>
+		</tr>
+	  <tr><td id="tdleft">
+		<%= f.label :Tracker %></td>
+		 <%#= f.select :tracker, User.find(:all, :conditions =>"lastname= Admin").collect{|p|[p.lastname]},  {:include_blank => 'select'} %>
+		 <td> <%= f.select :tracker, User.find(:all).collect{|p|[p.lastname]},  {:include_blank => 'select'},   {:except => 'Admin'} %></td>
+		 </tr>
+	  <tr><td id="tdleft">
+		<%= f.label :Status %></td>
+		<td><%= f.select(:status, options_for_select(["Draft", "Defined", "Estimated", "Planned", "Implemented", "Verified", "Accepted"])) %></td></tr>
 <tr>
-<%= form_for @story, :url => {:action => :create, :id => @iteration_id } do |f| %>
- <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-<div class="field">
-    <%= f.label :type %><br />
-    <%= f.select(:Type, options_for_select(["DEL", "REQ", "FEAT","ACT","TST","SCM","VOC","DEV","RPT"])) %>
-  </div>
-  <div class="field">
-    <%= f.label :Disposition %><br />
-    <%= f.select(:disposition, options_for_select(["Added", "Carried Over", "Planned"])) %>
-  </div>
-  <div class="field">
-    <%= f.label :Customer %><br />
-    <%= f.select :customer, User.find(:all, :conditions =>"lastname= Admin").collect{|p|[p.lastname]},  {:include_blank => 'select'} %>
-  </div>
-  <div class="field">
-    <%= f.label :Tracker %><br />
-     <%#= f.select :tracker, User.find(:all, :conditions =>"lastname= Admin").collect{|p|[p.lastname]},  {:include_blank => 'select'} %>
-      <%= f.select :tracker, User.find(:all).collect{|p|[p.lastname]},  {:include_blank => 'select'},   {:except => 'Admin'} %>
-  </div>
- <div class="field">
-    <%= f.label :Status %><br />
-    <%= f.select(:status, options_for_select(["Draft", "Defined", "Estimated", "Planned", "Implemented", "Verified", "Accepted"])) %>
-
-  </div>
- <div class="field">
-    <%= f.label :Priority %><br />
-    <%= f.text_field :priority %>
-  </div>
- <div class="field">
-    <%= f.label :Order %><br />
-    <%= f.text_field :order %>
-  </div>
- <div class="field">
-    <%= f.label :Estimated_hours %><br />
-    <%= f.text_field :Estimated_hours %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+	<td id="tdleft">	<%= f.label :Priority %></td>
+		<td ><%= f.text_field :priority %></td></tr>
+	<tr><td id="tdleft">	<%= f.label :Order %></td>
+		<td><%= f.text_field :order %></td></tr>
+	  <tr><td id="tdleft"><%= f.label :Estimated_hours %></td>
+		<td><%= f.text_field :Estimated_hours %></td></tr>
+		<tr>
+		  <td id="tdleft"><%= f.label :description%></td>
+			<td><%= f.text_area :description %>
+		</td></tr>
+	  <tr>
+		<td><%= f.submit %></td></tr>
+	<% end %>
+</div></table>
+<style>
+	#new_look{background: #F5FCFC;  border-radius: 5px 5px 5px 5px;
+    margin-left: 50px;
+    max-width: 65%;}
+    #tdleft{float: right; top: 9px; position: relative;}
+    textarea {
+    resize: none;
+    cols: 20;
+    rows: 40;
+    width: 462px; height: 214px;
+    }
+</style>
