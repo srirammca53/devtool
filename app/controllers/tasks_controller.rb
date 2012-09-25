@@ -130,15 +130,16 @@ def update_tasks
 end
 
 def logs
- params[:spent_hours].each do |t,values|
-@task = Task.find(t)
-@values = values 
-@spent = @values.values[0]
-@desc = @values.values[1]
-@date = Time.now.to_date
-if @spent != "" 
-@log = @task.logs.create(:spent_hours => @spent , :description => @desc, :report_date => @date )
-end
-end
+	 params[:spent_hours].each do |t, values|
+		@task = Task.find(t)
+		@values = values 
+		@spent = @values.values[0]
+		@desc = @values.values[1]
+		@date = params["gettingdate"]
+			if @spent != "" 
+				@log = @task.logs.create(:spent_hours => @spent , :description => @desc, :report_date => @date )
+				redirect_to my_page_path and return
+			end
+	end
 end
 end
